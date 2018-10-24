@@ -3,12 +3,15 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-// Routes
+use App\Infra\ClientMemoryRepository;
+use App\Domain\Client;
 
-$app->get('/[{name}]', function (Request $request, Response $response, array $args) {
-    // Sample log message
-    $this->logger->info("Slim-Skeleton '/' route");
+$app->post('/clients/{cpf}/survey', function (Request $request, Response $response, array $args) {
+    $repo = new ClientMemoryRepository;
+    $client = (new Client($repo))->setCpf($args['cpf'])->impactBySurvey();
 
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
+    return $response->withJson([
+        'cpf' => $client->getCpf(),
+        'last_survey_date' => $client->getLastSurveyDate(),
+    ]);
 });

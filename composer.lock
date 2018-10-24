@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e16cb7781829836a704bd8767830833",
+    "content-hash": "c0eb8352cb5e5a8d819c30d2c7beed7f",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -36,6 +36,57 @@
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
             "time": "2017-02-14T19:40:03+00:00"
+        },
+        {
+            "name": "miti/lib",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RafaelETI/miti-lib.git",
+                "reference": "0fdb1d7e7dea0885f93685c6ec0e7fb913018da2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RafaelETI/miti-lib/zipball/0fdb1d7e7dea0885f93685c6ec0e7fb913018da2",
+                "reference": "0fdb1d7e7dea0885f93685c6ec0e7fb913018da2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-mbstring": "*",
+                "ext-mysqli": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Miti\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rafael Barros",
+                    "email": "admin@rafaelbarros.eti.br",
+                    "homepage": "http://rafaelbarros.eti.br",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Biblioteca de utilidades variadas",
+            "homepage": "https://github.com/RafaelETI/miti-lib",
+            "keywords": [
+                "database",
+                "datetime",
+                "pagination",
+                "rest",
+                "sanitation",
+                "sql",
+                "validation"
+            ],
+            "time": "2017-06-05T20:07:05+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1869,7 +1920,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "miti/lib": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
