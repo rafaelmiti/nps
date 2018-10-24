@@ -40,11 +40,12 @@ class Client
     {
         $this->checkQuarantine();
         $this->lastSurveyDate = date('Y-m-d');
-        $this->repo->createImpact($this);
+        $this->repo->createQuarantine($this);
         
         return $this;
     }
-    
+
+    //todo: check repo instead
     private function checkQuarantine()
     {
         if ($this->lastSurveyDate === null) {

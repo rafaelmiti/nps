@@ -5,8 +5,18 @@ volumes:
         driver: local
 
 services:
+    mysql:
+        container_name: nps_mysql
+        image: mysql:5.7
+        volumes:
+            - ./database:/var/lib/mysql:rw
+            - ./resources:/docker-entrypoint-initdb.d
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+
     slim:
-        image: php:7-alpine
+        container_name: nps_app
+        build: .
         working_dir: /var/www
         command: php -S 0.0.0.0:8080 -t public
         environment:
@@ -16,3 +26,5 @@ services:
         volumes:
             - .:/var/www
             - logs:/var/www/logs
+        depends_on:
+          - mysql

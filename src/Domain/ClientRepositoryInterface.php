@@ -4,5 +4,5 @@ namespace App\Domain;
 
 interface ClientRepositoryInterface
 {
-    public function createImpact(Client $client);
+    public function createQuarantine(Client $client);
 }
