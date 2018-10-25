@@ -9,7 +9,7 @@ use App\Domain\Client;
 $app->post('/clients/{cpf}/survey', function (Request $request, Response $response, array $args) {
     try {
         $repo = new ClientDbRepository;
-        $client = (new Client($repo))->setCpf($args['cpf'])->impactBySurvey();
+        $client = (new Client($args['cpf'], $repo))->impactBySurvey();
 
         return $response->withJson([
             'cpf' => $client->getCpf(),

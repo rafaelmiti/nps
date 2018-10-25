@@ -6,24 +6,19 @@ use Miti\Validacao;
 
 class Client
 {
-    const QUANRANTINE_DAYS = 90;
+    const QUARANTINE_DAYS = 90;
     
     private $repo;
 
     private $cpf;
     private $lastSurveyDate;
 
-    public function __construct(ClientRepositoryInterface $repo)
-    {
-        $this->repo = $repo;
-    }
-
-    public function setCpf(string $cpf): Client
+    public function __construct(string $cpf, ClientRepositoryInterface $repo)
     {
         Validacao::cpf($cpf);
         $this->cpf = $cpf;
         
-        return $this;
+        $this->repo = $repo;
     }
 
     public function getCpf(): string
@@ -45,17 +40,18 @@ class Client
         return $this;
     }
 
-    //todo: check repo instead
     private function checkQuarantine()
     {
-        if ($this->lastSurveyDate === null) {
+        $lastQuarantineDateString = $this->repo->findLastQuarantineDate($this);
+        
+        if (!$lastQuarantineDateString) {
             return;
         }
         
-        $lastSurveyDate = new \DateTime($this->lastSurveyDate);
+        $lastQuarantineDate = new \DateTime($lastQuarantineDateString);
         $today = new \DateTime('now');
         
-        if ($lastSurveyDate->diff($today, true)->format('%a') < self::QUANRANTINE_DAYS) {
+        if ($lastQuarantineDate->diff($today, true)->format('%a') < self::QUARANTINE_DAYS) {
             throw new \Exception("The client {$this->cpf} is in survey quarantine");
         }
     }

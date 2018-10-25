@@ -9,7 +9,7 @@ class ClientTest extends TestCase
     public function testImpactBySurvey()
     {
         $repo = new ClientMemoryRepository;
-        $client = (new Client($repo))->setCpf('97238691019')->impactBySurvey();
+        $client = (new Client('97238691019', $repo))->impactBySurvey();
         
         $this->assertSame(date('Y-m-d'), $client->getLastSurveyDate());
     }
@@ -19,7 +19,7 @@ class ClientTest extends TestCase
         $cpf = '97238691019';
         
         $repo = new ClientMemoryRepository;
-        $client = (new Client($repo))->setCpf($cpf)->impactBySurvey();
+        $client = (new Client($cpf, $repo))->impactBySurvey();
         
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("The client $cpf is in survey quarantine");

@@ -7,10 +7,26 @@ use App\Domain\ClientRepositoryInterface;
 
 class ClientMemoryRepository implements ClientRepositoryInterface
 {
-    private $impacts = [];
+    private $quarantines = [];
     
-    public function createImpact(Client $client)
+    public function createQuarantine(Client $client)
     {
-        $this->impacts[] = ['cpf' => $client->getCpf(), 'date' => $client->getLastSurveyDate()];
+        $this->quarantines[] = [
+            'cpf' => $client->getCpf(),
+            'date' => $client->getLastSurveyDate()
+        ];
+    }
+    
+    public function findLastQuarantineDate(Client $client)
+    {
+        $lastQuarantineDate = null;
+        
+        foreach ($this->quarantines as $quarantine) {
+            if ($quarantine['cpf'] == $client->getCpf()) {
+                $lastQuarantineDate = $quarantine['date'];
+            }
+        }
+        
+        return $lastQuarantineDate;
     }
 }
