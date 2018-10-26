@@ -4,7 +4,7 @@
 
 ## Instalar dependências e executar os testes unitários
 
-- `docker exec -it nps_app sh`
+- `docker exec -it nps_app bash`
 - `php composer.phar install`
 - `./phpunit`
 
