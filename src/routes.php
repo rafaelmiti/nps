@@ -15,7 +15,9 @@ $app->post('/clients/{cpf}/survey', function (Request $request, Response $respon
             'cpf' => $client->getCpf(),
             'last_survey_date' => $client->getLastSurveyDate(),
         ]);
+    } catch (\BadMethodCallException $e) {
+        return $response->withStatus(400)->withJson(['error' => $e->getMessage()]);
     } catch (\Exception $e) {
-        return $response->withJson(['error' => $e->getMessage()]);
+        return $response->withStatus(500)->withJson(['error' => $e->getMessage()]);
     }
 });

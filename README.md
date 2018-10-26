@@ -18,3 +18,10 @@
 - `mysql -u root -p` (senha: `root`)
 - `use nps;`
 - `select * from quarantine;`
+
+## Cache
+
+- O cache é invalidado para cada CPF em 90 dias, de forma que não haja consulta ao banco antes do tempo da regra da noventena
+- Flush total do cache para efeito de teste:
+  - `docker exec -it nps_memcached bash`
+  - `echo flush_all > /dev/tcp/127.0.0.1/11211`

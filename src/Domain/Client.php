@@ -15,10 +15,19 @@ class Client
 
     public function __construct(string $cpf, ClientRepositoryInterface $repo)
     {
-        Validacao::cpf($cpf);
+        $this->validateCpf($cpf);
         $this->cpf = $cpf;
         
         $this->repo = $repo;
+    }
+
+    private function validateCpf(string $cpf)
+    {
+        try {
+            Validacao::cpf($cpf);
+        } catch (\Exception $e) {
+            throw new \BadMethodCallException($e->getMessage());
+        }
     }
 
     public function getCpf(): string
@@ -52,7 +61,7 @@ class Client
         $today = new \DateTime('now');
         
         if ($lastQuarantineDate->diff($today, true)->format('%a') < self::QUARANTINE_DAYS) {
-            throw new \Exception("The client {$this->cpf} is in survey quarantine");
+            throw new \BadMethodCallException("The client {$this->cpf} is in survey quarantine");
         }
     }
 }
