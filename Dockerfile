@@ -1,7 +1,11 @@
 FROM php:latest
 
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
 RUN apt-get update \
   && apt-get install -y \
+     zip \
+     unzip \
      libmemcached11 \
      libmemcachedutil2 \
      build-essential \
@@ -13,7 +17,5 @@ RUN apt-get update \
   && phpize \
   && ./configure \
   && make all \
-  && docker-php-ext-install memcached \
+  && docker-php-ext-install memcached zip \
   && docker-php-ext-enable memcached
-
-RUN docker-php-ext-install mysqli pdo pdo_mysql
